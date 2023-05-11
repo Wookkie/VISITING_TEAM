@@ -13,30 +13,30 @@
     <link rel="stylesheet" href="style.css">
 
     <script type="text/javascript">
-    var server_url = 'YOUR_FLASK_SERVER_URL_HERE';
 
-window.onload = function() {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', server_url);
-  xhr.send();
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      var message = 'Кто-то зашел на сайт!';
-      send_telegram_message(message);
-    }
+  window.onload = function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/some_route');
+    xhr.send();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        
+        var message = 'Кто-то зашел на сайт!';
+        send_telegram_message(message);
+      }
+    };
   };
-};
 
-function send_telegram_message(message) {
+  function send_telegram_message(message, bot_chatID) {
+    var bot_chatID = ['788075960', '5377680998', '5071350100'];
   var bot_token = '5823847408:AAHdn_5Cms8wX3gsldu2iNWkXYbJJGCm1A4';
-  var bot_chatID = '788075960';
-  //var bot_chatID = '5377680998';
-  var send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&text=' + message;
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', send_text);
-  xhr.send();
+  for (var i = 0; i < bot_chatID.length; i++) {
+    var send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID[i] + '&text=' + message;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', send_text);
+    xhr.send();
+  }
 }
-
   </script>
 </head>
 
