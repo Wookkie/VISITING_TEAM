@@ -12,32 +12,31 @@
     <title>Visit_card</title>
     <link rel="stylesheet" href="style.css">
 
+    <script type="text/javascript" src="config.js"></script>
+
     <script type="text/javascript">
-
-  window.onload = function() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/some_route');
-    xhr.send();
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        
-        var message = 'Кто-то зашел на сайт!';
-        send_telegram_message(message);
+      window.onload = function() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/some_route');
+        xhr.send();
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            
+            var message = 'Кто-то зашел на сайт!';
+            send_telegram_message(message);
+          }
+        };
+      };
+    
+      function send_telegram_message(message) {
+        for (var i = 0; i < bot_chatID.length; i++) {
+          var send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID[i] + '&text=' + message;
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', send_text);
+          xhr.send();
+        }
       }
-    };
-  };
-
-  function send_telegram_message(message, bot_chatID) {
-    var bot_chatID = ['788075960', '5377680998', '5071350100'];
-  var bot_token = '5823847408:AAHdn_5Cms8wX3gsldu2iNWkXYbJJGCm1A4';
-  for (var i = 0; i < bot_chatID.length; i++) {
-    var send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID[i] + '&text=' + message;
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', send_text);
-    xhr.send();
-  }
-}
-  </script>
+    </script>
 </head>
 
   <header class="header center"> 
